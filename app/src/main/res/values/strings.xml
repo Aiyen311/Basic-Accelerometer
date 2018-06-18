@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Accelerometer</string>
+
+    <!-- Toolbar Strings -->
+    <string name="toolbar_play">Play</string>
+    <string name="toolbar_stop">Stop</string>
+    <string name="toolbar_settings">Settings</string>
+    <string name="toolbar_add_card">Add Card</string>
+
+    <!-- Text Strings -->
+    <string name="steps_string">Steps: </string>
+    <string name="linear_acceleration">Linear Acceleration: </string>
+    <string name="accelerationX">Acceleration X: </string>
+    <string name="accelerationY">Acceleration Y: </string>
+    <string name="accelerationZ">Acceleration Z: </string>
+    <string name="velocity">Velocity: </string>
+    <string name="distance_traveled">Distance Traveled: </string>
+
+</resources>
