@@ -91,19 +91,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             deltaAccel_y = Math.abs(last_accel_x - sensorEvent.values[1]);
             deltaAccel_z = Math.abs(last_accel_x - sensorEvent.values[2]);
 
-            if(deltaAccel_x < 2){
-                deltaAccel_x = 0;
-            }
-            if(deltaAccel_y < 2){
-                deltaAccel_y = 0;
-            }
-            if(deltaAccel_z < 2){
-                deltaAccel_z = 0;
-            }
-
             last_accel_x = sensorEvent.values[0];
             last_accel_y = sensorEvent.values[1];
             last_accel_z = sensorEvent.values[2];
+            
+            // We should also check for noise data, meaning that the sensor is picking up random stuff
+            // Thats why we have the deltaAccel variables. 
+            // One simple way to improve the accuracy could be to apply different window functions. 
+            // I will try to add this functionality when I can
+            // Also need to add functionality to add the values to the graph using some kind of timer
 
             // Update the text views and the graph
             accelXText.setText(Float.toString(accel_x));
