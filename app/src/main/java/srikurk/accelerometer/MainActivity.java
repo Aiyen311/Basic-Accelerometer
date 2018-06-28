@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private Sensor accelerationSensor;
     private Sensor linearAccelerationSensor;
     private Sensor gravitySensor;
-    private Sensor stepCounterSensor;
 
     // Graph Lines
     private LineGraphSeries<DataPoint> accelerationSeries;
@@ -57,7 +56,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         sensorManager.registerListener(this, accelerationSensor, SensorManager.SENSOR_DELAY_NORMAL);
         sensorManager.registerListener(this, linearAccelerationSensor, SensorManager.SENSOR_DELAY_NORMAL);
         sensorManager.registerListener(this, gravitySensor, SensorManager.SENSOR_DELAY_NORMAL);
-        sensorManager.registerListener(this, stepCounterSensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     public void startClicked(View view){
@@ -116,9 +114,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         }
 
-        if(sensorEvent.sensor.getType() == Sensor.TYPE_STEP_COUNTER){
-
-        }
     }
 
     @Override
@@ -177,10 +172,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         linearAccelerationSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
         // Gravity
         gravitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY);
-        // Steps
-        stepCounterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
 
-        if((accelerationSensor == null) || (linearAccelerationSensor == null) || (gravitySensor == null) || (stepCounterSensor == null)){
+        if((accelerationSensor == null) || (linearAccelerationSensor == null) || (gravitySensor == null)){
             return false;
         }
 
@@ -190,7 +183,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getSupportActionBar().setTitle("Srikur's Accelerometer");
+        getSupportActionBar().setTitle("Srikur and Adithya's Accelerometer");
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
         return true;
     }
@@ -210,11 +203,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         return super.onOptionsItemSelected(item);
     }
 
+    /*
     public native float getAcceleration();
     public native float getLinearAcceleration();
     public native int getSteps();
     public native float calculateVelocity();
-
+    */
 
     static {
         System.loadLibrary("native-lib");
