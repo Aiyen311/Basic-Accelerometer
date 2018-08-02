@@ -58,4 +58,18 @@
         android:layout_height="wrap_content"
         android:text="@string/distance_traveled" />
 
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="startClicked"
+        android:text="Start" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="stopClicked"
+        android:text="Stop" />
+
 </LinearLayout>
