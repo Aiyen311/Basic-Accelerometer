@@ -8,6 +8,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
@@ -31,9 +32,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private Sensor linearAccelerationSensor;
     private Sensor gravitySensor;
 
+    private long startTime = 0;
+    private long graphXAxis = 0;
+
     // Graph Lines
     private LineGraphSeries<DataPoint> accelerationSeries;
-    private LineGraphSeries<DataPoint> linearAccelerationSeries;
 
     // Acceleration Values
     private float accel_x;
@@ -48,7 +51,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     // Text Views
     private TextView accelXText, accelYText, accelZText;
-
 
     @Override
     public void onResume() {
@@ -104,6 +106,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             accelYText.setText(Float.toString(accel_y));
             accelZText.setText(Float.toString(accel_z));
 
+            // Add the values to the graph
+            /*graphXAxis = (int) ((System.currentTimeMillis() - startTime) / 1000);
+            accelerationSeries.appendData(new DataPoint(graphXAxis, accel_x), true, 40);
+            accelerationSeries.appendData(new DataPoint(graphXAxis, accel_y), true, 40);
+            accelerationSeries.appendData(new DataPoint(graphXAxis, accel_z), true, 40);*/
+
         }
 
         if(sensorEvent.sensor.getType() == Sensor.TYPE_LINEAR_ACCELERATION){
@@ -143,6 +151,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        startTime = System.currentTimeMillis();
+
         // Setup the toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(toolbar);
@@ -153,10 +163,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             dialogFragment.show(fragmentManager, "hi");
         }
 
-        GraphView graph = (GraphView) findViewById(R.id.graph);
+        /*GraphView graph = (GraphView) findViewById(R.id.graph);
         graph.getViewport().setXAxisBoundsManual(true);
-        graph.addSeries(accelerationSeries);
-        graph.addSeries(linearAccelerationSeries);
+        graph.addSeries(accelerationSeries);*/
 
         accelXText = (TextView) findViewById(R.id.accelerationXTextView);
         accelYText = (TextView) findViewById(R.id.accelerationYTextView);
@@ -184,7 +193,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getSupportActionBar().setTitle("Srikur and Adithya's Accelerometer");
-        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        //getMenuInflater().inflate(R.menu.toolbar_menu, menu);
         return true;
     }
 
@@ -195,22 +204,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
-    }
-
-    /*
-    public native float getAcceleration();
-    public native float getLinearAcceleration();
-    public native int getSteps();
-    public native float calculateVelocity();
-    */
-
-    static {
-        System.loadLibrary("native-lib");
     }
 }
